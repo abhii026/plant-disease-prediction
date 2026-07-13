@@ -135,7 +135,7 @@ pip install -r requirements.txt
 ---
 ## 👨‍💻 Authors
 
-- **[Jaya Chourasua](https://github.com/Jaya0925)**
+- **[Jaya Chourasia](https://github.com/Jaya0925)**
 - **[Vidhi Pratheesh](https://github.com/Vidhiiiiiiiii)**
 - **[Abhishek Singh](https://github.com/abhii026)**
 
