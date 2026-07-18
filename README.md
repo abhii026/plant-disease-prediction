@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🌿 PlantGuard — Plant Disease Prediction from Environmental Data
 
 > A machine learning project that predicts whether a crop is Healthy or Diseased using temperature, humidity, rainfall, and soil pH — comparing Logistic Regression and Random Forest.
@@ -85,7 +84,7 @@ plant-disease-prediction/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/plant-disease-prediction.git
+git clone https://github.com/abhii026/plant-disease-prediction.git
 cd plant-disease-prediction
 ```
 
@@ -134,17 +133,28 @@ pip install -r requirements.txt
 ```
 
 ---
+## 👨‍💻 Authors
 
-## 👨‍💻 Author
+- **[Jaya Chourasia](https://github.com/Jaya0925)**
+- **[Vidhi Pratheesh](https://github.com/Vidhiiiiiiiii)**
+- **[Abhishek Singh](https://github.com/abhii026)**
 
-**[Your Name]**
 CA2 Project — Data Analytics / Machine Learning
+
+---
 
 ---
 
 ## 📄 License
 
-This project is for educational purposes only.
-=======
-# Plant-Disease-Classification
->>>>>>> 5311306c4a5585ec2ca6d162dd58128fa0c1af4e
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Thank You
+
+Thank you for checking out this project!
+
+If you found it helpful, consider giving it a ⭐ on GitHub. Your support is appreciated and encourages future improvements.
+
+Happy Coding! 🚀🌿
