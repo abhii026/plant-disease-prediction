@@ -30,7 +30,7 @@
 
 ```
 plant-disease-prediction/
-├── CA2project_improved.ipynb        ← Main notebook (cleaned + corrected analysis)
+├── main.ipynb        ← Main notebook (cleaned + corrected analysis)
 ├── dashboard1.pbix                  ← Power BI dashboard file
 ├── dashboard_img/                   ← Dashboard screenshots (Introduction + Main pages)
 │   ├── intro.png
