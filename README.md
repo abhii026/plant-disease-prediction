@@ -1,4 +1,3 @@
-
 # 🌿 PlantGuard — Plant Disease Prediction from Environmental Data
 
 > A machine learning project that predicts whether a crop is Healthy or Diseased using temperature, humidity, rainfall, and soil pH — comparing Logistic Regression and Random Forest, visualized through an interactive Power BI dashboard.
@@ -30,14 +29,17 @@
 
 ```
 plant-disease-prediction/
-├── main.ipynb        ← Main notebook (cleaned + corrected analysis)
+├── CA2project_improved.ipynb        ← Main notebook (cleaned + corrected analysis)
+├── main.ipynb                       ← Legacy/alternate notebook version
 ├── dashboard1.pbix                  ← Power BI dashboard file
-├── dashboard_img/                   ← Dashboard screenshots (Introduction + Main pages)
-│   ├── intro.png
-│   └── main.png
+├── dashboard_img/                   ← Dashboard screenshots
+│   └── png/                         ← Introduction, Data Insights, and Model Analysis pages
+│       ├── intro.png                (Introduction page)
+│       ├── dataInsight.png          (Data Insights page)
+│       └── ml.png                   (Machine Learning Model Analysis page)
+├── images/                          ← Saved plots (EDA, feature importance, confusion matrices, etc.)
 ├── plant_disease_dataset.csv        ← Raw input dataset (10,000 records)
 ├── plant_disease_powerbi_export.csv ← Cleaned + feature-engineered data with predictions, for Power BI
-├── images/                          ← Saved plots (EDA, feature importance, confusion matrices, etc.)
 ├── requirements.txt                 ← Python dependencies
 ├── .gitignore                       ← Ignores checkpoints, venv, cache, etc.
 ├── LICENSE                          ← MIT License
@@ -52,10 +54,10 @@ plant-disease-prediction/
 2. Detect and fix anomalies (e.g. humidity readings above 100%) and cap outliers using the IQR method.
 3. Run exploratory data analysis — distributions, correlation heatmap, feature-vs-disease boxplots.
 4. Engineer new features (`temp_humidity_index`, `rainfall_level`, `soil_pH_deviation`) to expose non-linear/combined effects.
-5. Split the data (80/20, stratified) and scale features — fitting the scaler **only on the training set** to avoid leakage.
-6. Train and evaluate **Logistic Regression** and **Random Forest**, comparing Accuracy, Precision, Recall, and F1.
+5. Split the data (80/20, stratified — 8,000 training / 2,000 testing records) and scale features — fitting the scaler **only on the training set** to avoid leakage.
+6. Train and evaluate **Logistic Regression** and **Random Forest** across 8 engineered/raw features, comparing Accuracy, Precision, Recall, and F1.
 7. Export the final cleaned dataset with both models' predictions to CSV for Power BI dashboarding.
-8. Build an interactive **Power BI dashboard** (KPIs, disease distribution, feature importance, environmental comparisons) so non-technical stakeholders can explore the results.
+8. Build an interactive **3-page Power BI dashboard** (Introduction, Data Insights, and Machine Learning Model Analysis) so both stakeholders and technical reviewers can explore the results.
 
 ---
 
@@ -66,6 +68,13 @@ plant-disease-prediction/
 | Logistic Regression | 0.781 | 0.608 | 0.251 | 0.355 |
 | **Random Forest** | **0.864** | **0.779** | **0.608** | **0.683** |
 
+**Confusion Matrix — Random Forest**
+
+| Actual \ Predicted | Healthy | Diseased |
+|---|---|---|
+| Healthy | 1435 | 83 |
+| Diseased | 189 | 293 |
+
 **Random Forest wins** — it's substantially better at catching actual disease cases (recall), suggesting disease risk is threshold-driven (e.g. spikes past a rainfall/humidity point) rather than linear, a pattern tree-based splits capture but Logistic Regression cannot.
 
 ![Model Comparison](images/model_comparison.png)
@@ -75,32 +84,37 @@ plant-disease-prediction/
 
 ## 📈 Power BI Dashboard
 
-The final predictions and engineered features were exported to `plant_disease_powerbi_export.csv` and built into a 2-page interactive Power BI dashboard.
+The final predictions and engineered features were exported to `plant_disease_powerbi_export.csv` and built into a **3-page interactive Power BI dashboard**.
 
 **🔗 Live dashboard link:** _coming soon_
 
-### Introduction Page
-Project title, problem statement, objectives, dataset summary, and team credits.
+### 1. Introduction Page
+Project title ("Crop Health Prediction using Environmental Data"), problem statement, objectives, dataset summary (10,000 records, 4 environmental features, best model Random Forest at 85.95% accuracy), and team credits.
 
 ![Dashboard Introduction Page](dashboard_img/intro.png)
 
-### Main Dashboard Page
-KPI cards (Total Records, Healthy Crops, Diseased Crops, Disease %), a Disease Distribution donut chart, and side-by-side comparisons of average Temperature, Humidity, Rainfall, and Soil pH between Healthy and Diseased crops — plus a Disease Status slicer for live filtering.
+### 2. Data Insights Page
+KPI cards (10K Total Records, 7,590 Healthy Crops, 2,410 Diseased Crops, 24% Disease Percentage), a Crop Health Distribution donut chart (76% Healthy / 24% Diseased), and side-by-side comparisons of average Temperature, Humidity, Rainfall, and Soil pH between Healthy and Diseased crops — plus a Disease Status slicer and reset button for live filtering.
 
-![Dashboard Main Page](dashboard_img/main.png)
+![Dashboard Data Insights Page](dashboard_img/dataInsight.png)
+
+### 3. Machine Learning Model Analysis Page
+A Feature Importance bar chart, the Random Forest confusion matrix, a Model Comparison chart (Logistic Regression vs Random Forest across Accuracy, Precision, F1, Recall), a Random Forest performance summary (86.40% accuracy, 77.93% precision, 60.79% recall, 68.30% F1), and the model configuration details (train/test split, features used, random state).
+
+![Dashboard Machine Learning Model Analysis Page](dashboard_img/ml.png)
 
 ---
 
 ## 🧬 ML Concepts Used
 
 - **Data Cleaning & Anomaly Detection** — physically impossible values, IQR-based outlier capping
-- **Feature Engineering** — interaction terms, bucketed thresholds, deviation-from-neutral features
-- **Train/Test Split with Stratification** — preserves the ~76/24 class imbalance across splits
+- **Feature Engineering** — interaction terms (Temp × Humidity Index), bucketed thresholds (Rainfall High/Medium), deviation-from-neutral features (Soil pH Deviation)
+- **Train/Test Split with Stratification** — 8,000/2,000 split, preserving the ~76/24 class imbalance across splits
 - **Feature Scaling without Leakage** — `StandardScaler` fit on training data only
 - **Feature Importance** — Random Forest importances computed post-split
 - **Classification Models** — Logistic Regression (linear baseline) vs Random Forest (non-linear)
 - **Evaluation Metrics** — Accuracy, Precision, Recall, F1, Confusion Matrix
-- **BI Dashboarding** — DAX measures, KPI cards, interactive slicers built in Power BI
+- **BI Dashboarding** — DAX measures, KPI cards, interactive slicers built across a 3-page Power BI report
 
 ---
 
@@ -125,7 +139,7 @@ Run all cells top to bottom. Make sure `plant_disease_dataset.csv` is in the sam
 1. Install [Power BI Desktop](https://www.microsoft.com/en-us/power-platform/products/power-bi/desktop) (free, Windows only).
 2. Open **`dashboard1.pbix`** directly in Power BI Desktop.
 3. If prompted to refresh data, click **Refresh** on the Home ribbon — this reloads `plant_disease_powerbi_export.csv` into the model.
-4. Use the **Disease Status slicer** on the Main page to filter the dashboard live between Healthy and Diseased crops.
+4. Navigate between the **Introduction**, **Data Insights**, and **Machine Learning Model Analysis** pages, and use the **Disease Status slicer** on the Data Insights page to filter live between Healthy and Diseased crops.
 5. To export a static copy: **File → Export → Export to PDF**.
 
 ---
@@ -133,11 +147,11 @@ Run all cells top to bottom. Make sure `plant_disease_dataset.csv` is in the sam
 ## ✅ What We Got (Key Outcomes)
 
 - **10,000 crop records** analyzed across 4 environmental features (temperature, humidity, rainfall, soil pH).
-- Dataset is **imbalanced**: ~76% Healthy vs ~24% Diseased — an important context for interpreting model accuracy.
-- **Random Forest was the best model**, reaching **85.95% accuracy**, clearly outperforming Logistic Regression — especially on recall, meaning it catches far more true disease cases.
-- **Soil pH was the most influential feature** (importance ≈ 0.30), followed by Temperature (≈0.25), Rainfall (≈0.24), and Humidity (≈0.22) — soil chemistry mattered more to disease risk than any single weather variable.
-- Diseased crops, on average, showed **higher temperature, higher humidity, higher soil pH, and lower rainfall** compared to Healthy crops — turning the model's internal logic into a plain-language pattern anyone can read.
-- All of the above was packaged into a **2-page interactive Power BI dashboard** (Introduction + Main insights), making the model's findings usable by non-technical stakeholders like farm managers, not just data scientists.
+- Dataset is **imbalanced**: **7,590 Healthy (76%)** vs **2,410 Diseased (24%)** — an important context for interpreting model accuracy.
+- **Random Forest was the best model**, reaching **86.40% accuracy** (77.93% precision, 60.79% recall, 68.30% F1), clearly outperforming Logistic Regression — especially on recall, meaning it catches far more true disease cases.
+- **Soil pH was the most influential feature** (importance ≈ 0.197), followed by the engineered Temp × Humidity Index (≈0.162), Soil pH Deviation (≈0.159), Temperature (≈0.153), Humidity (≈0.150), and Rainfall (≈0.145) — with the bucketed Rainfall High/Medium features contributing marginally (≈0.029 / ≈0.006).
+- Diseased crops, on average, showed **higher humidity (70 vs 60) and higher rainfall (~10 vs ~6)**, **slightly lower soil pH (6.1 vs 6.3)**, and **nearly identical temperature (~25.5°C)** compared to Healthy crops — turning the model's internal logic into a plain-language pattern anyone can read.
+- All of the above was packaged into a **3-page interactive Power BI dashboard** (Introduction, Data Insights, and Machine Learning Model Analysis), making both the model's findings and its technical performance usable by non-technical stakeholders and reviewers alike.
 
 ---
 
